@@ -2,24 +2,28 @@
 
 An image sharing site.
 
-### Description
+## Description
 
 This project is the frontend to an Instagram clone.
 
-### Functionality
+## Functionality
 
 The page uses responsive CSS to make the page look good on virtually any device.
 
-### Tech Stack
+## Tech Stack
 
--HTML
--CSS
--Responsive Design
+- HTML
+- CSS
+- Responsive Design
 
-### Technologies
+## Technologies
 
 Project created by following Figma design
 Usage of "display: grid;"
 Media queries
 Imports
 Website deployed using GitHub Pages
+
+## Deployment
+
+- [Deployment Link:](https://thepaladin000.github.io/Instagram-Clone/)
