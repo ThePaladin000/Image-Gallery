@@ -26,4 +26,8 @@ Website deployed using GitHub Pages
 
 ## Deployment
 
-- [Deployment Link:](https://thepaladin000.github.io/Instagram-Clone/)
+- [Deployment Link](https://thepaladin000.github.io/Instagram-Clone/)
+
+## Presentation
+
+- [Video Presentation](https://drive.google.com/file/d/1IzDun4-qs-8bmWNH8gDHMk1JIUiR0HLS/view?usp=sharing)
