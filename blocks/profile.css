@@ -20,6 +20,7 @@
 
 .profile__name {
   margin: 0 0 12px;
+  color: #212121;
   font-weight: 500;
   font-size: 32px;
   line-height: 1;
@@ -28,10 +29,12 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  max-width: 420px;
 }
 
 .profile__description {
   margin: 0;
+  color: #212121b2;
   font-weight: 500;
   font-size: 16px;
   line-height: 1;
@@ -41,11 +44,13 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   opacity: 70%;
+  max-width: 420px;
 }
 
 .profile__edit-btn {
   display: flex;
   margin-top: auto;
+  color: #212121;
   font-weight: 500;
   font-size: 16px;
   line-height: 1;
@@ -56,9 +61,15 @@
   gap: 8px;
 }
 
+.profile__edit-btn:hover {
+  opacity: 100%;
+  cursor: pointer;
+}
+
 .profile__edit-btn::before {
   content: "";
   background-image: url("../images/pencil.svg");
+  color: #212121;
   width: 15px;
   height: 15px;
   display: inline-block;
@@ -92,7 +103,8 @@
 }
 
 .profile__add-btn:hover {
-  background-color: #333; /* Slightly lighter on hover */
+  opacity: 80%;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 885px) {
@@ -115,11 +127,13 @@
     margin: 0;
     padding: 0;
     font-size: 20px;
+    max-width: 288px;
   }
 
   .profile__description {
     padding: 0;
-    margin: 6px 0 32px;
+    margin: 6px auto 32px;
+    max-width: 288px;
   }
 
   .profile__add-btn {
