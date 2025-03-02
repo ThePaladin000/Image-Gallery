@@ -13,6 +13,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 12px 0 0;
 }
 
 .card__title {
@@ -23,7 +24,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  margin: 12px 0 0;
+  margin: 0;
   max-width: 353px;
 }
 
@@ -43,9 +44,8 @@
 
 @media screen and (max-width: 885px) {
   .card {
-    width: 288px;
+    max-width: 288px;
   }
-
   .card__image {
     max-width: 288px;
     max-height: 288px;
@@ -53,6 +53,10 @@
   }
   .card__content {
     max-width: 288px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
+  }
+  .card__title {
+    font-size: 16px;
+    line-height: 1;
   }
 }

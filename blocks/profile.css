@@ -43,7 +43,6 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  opacity: 70%;
   max-width: 420px;
 }
 
@@ -69,7 +68,6 @@
 .profile__edit-btn::before {
   content: "";
   background-image: url("../images/pencil.svg");
-  color: #212121;
   width: 15px;
   height: 15px;
   display: inline-block;
@@ -113,7 +111,7 @@
     max-width: 288px;
     align-items: center;
     text-align: center;
-    margin: 20px auto 12px;
+    margin: 20px auto 0;
     padding: 0;
   }
 
