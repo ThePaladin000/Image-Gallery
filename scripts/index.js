@@ -1,7 +1,18 @@
 const editButton = document.querySelector(".profile__edit-btn");
 const closeButton = document.querySelector(".modal__close-btn");
 
+const cardsList = document.querySelector(".cards__list");
+const cardTemplate = document.querySelector(".card__template");
+
 const profileFormElement = document.querySelector(".modal__form");
+
+const editProfileModal = document.querySelector("#edit-modal");
+
+const inputName = document.querySelector("#name");
+const inputDescription = document.querySelector("#description");
+
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__description");
 
 //data for the cards (will implement in backend later)
 const initialCards = [
@@ -31,15 +42,8 @@ const initialCards = [
   },
 ];
 
-const singleCard = {
-  name: "Restaurant terrace",
-  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
-};
-
 //populates the grid with cards
 function getCardElement(data) {
-  const cardsList = document.querySelector(".cards__list");
-  const cardTemplate = document.querySelector(".card__template");
   const card = cardTemplate.content.cloneNode(true);
 
   const cardName = data.name;
@@ -50,45 +54,38 @@ function getCardElement(data) {
   card.querySelector(".card__image").src = cardLink;
   card.querySelector(".card__image").alt = cardName;
 
-  cardsList.append(card);
+  return card;
 }
 
 for (let i = 0; i < initialCards.length; i++) {
-  getCardElement(initialCards[i]);
+  const cardElement = getCardElement(initialCards[i]);
+  cardsList.append(cardElement);
 }
+
+//functions to open and close the edit profile modal
+function openModal() {
+  inputName.placeholder = profileName.textContent;
+  inputDescription.placeholder = profileDescription.textContent;
+
+  editProfileModal.classList.add("modal_opened");
+}
+
+function closeModal() {
+  editProfileModal.classList.remove("modal_opened");
+}
+
+editButton.addEventListener("click", openModal);
+
+closeButton.addEventListener("click", closeModal);
 
 //submit logic for the profile save button
 function handleProfileFormSubmit(evt) {
-  const inputName = document.querySelector(".input__name");
-  const inputDescription = document.querySelector(".input__description");
-
-  const profileName = document.querySelector(".profile__name");
-  const profileDescription = document.querySelector(".profile__description");
-
   evt.preventDefault();
 
   profileName.textContent = inputName.value;
   profileDescription.textContent = inputDescription.value;
 
-  inputName.placeholder = profileName.textContent;
-  inputDescription.placeholder = profileDescription.textContent;
-
-  editModal();
+  closeModal();
 }
 
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
-
-//function to open and close the edit profile modal
-function editModal() {
-  const editProfileModal = document.querySelector("#edit-modal");
-
-  if (editProfileModal.classList.contains("modal_opened")) {
-    editProfileModal.classList.remove("modal_opened");
-  } else {
-    editProfileModal.classList.add("modal_opened");
-  }
-}
-
-editButton.addEventListener("click", editModal);
-
-closeButton.addEventListener("click", editModal);
