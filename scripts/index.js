@@ -64,8 +64,8 @@ for (let i = 0; i < initialCards.length; i++) {
 
 //functions to open and close the edit profile modal
 function openModal() {
-  inputName.placeholder = profileName.textContent;
-  inputDescription.placeholder = profileDescription.textContent;
+  inputName.value = profileName.textContent;
+  inputDescription.value = profileDescription.textContent;
 
   editProfileModal.classList.add("modal_opened");
 }
