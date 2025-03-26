@@ -32,33 +32,33 @@
 }
 
 .modal__header {
-  margin: 0 0 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .modal__close-btn {
+  margin: 0 0 32px;
   top: 32px;
   right: 40px;
   width: 40px;
   height: 40px;
-  opacity: 40%;
+  opacity: 0.4;
   font-size: 40px;
   line-height: 1;
-  font-weight: 1;
   padding: 0;
   background-color: transparent;
-  background-image: url("../images/Close-Icon.png");
+  background-image: url("../images/Close-Icon.svg");
   border: none;
 }
 
 .modal__close-btn:hover {
   cursor: pointer;
-  opacity: 100%;
+  opacity: 1;
 }
 
 .modal__title {
+  margin: 0 0 32px;
   font-family: Poppins, Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-size: 32px;
@@ -74,7 +74,7 @@
   font-family: Poppins, Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-size: 16px;
-  line-height: 110.00000000000001%;
+  line-height: 110%;
   color: rgba(33, 33, 33, 0.7);
 }
 
@@ -107,11 +107,17 @@
 }
 
 .modal__submit-btn:hover {
-  opacity: 80%;
+  opacity: 0.8;
   cursor: pointer;
 }
 
-#image-modal__container {
+.modal__image-container {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.modal__container-image {
   background: none;
   width: initial;
   margin: 0;
@@ -128,22 +134,31 @@
   border-radius: 8px;
 }
 
+.modal__caption {
+  background-color: rgba(33, 33, 33, 1);
+  color: rgba(255, 255, 255, 1);
+  padding: 4px 8px;
+  border-radius: 8px;
+  display: inline-block;
+  margin: 8px 0 0;
+}
+
 .image-modal {
   width: auto;
   height: auto;
 }
 
-#image-close-btn {
+.modal__close-btn-image {
   position: absolute;
-  top: 0;
-  right: -50px;
+  top: 10px;
+  right: -10px;
   cursor: pointer;
   opacity: 1;
   background-image: url("../images/Close-icon-white.svg");
 }
 
-#image-close-btn:hover {
-  opacity: 40%;
+.modal__close-btn-image:hover {
+  opacity: 0.4;
 }
 
 @media screen and (max-width: 620px) {
@@ -174,5 +189,10 @@
 
   .modal__submit-btn {
     width: 100%;
+  }
+
+  .modal__close-btn-image {
+    top: -15px;
+    right: 50px;
   }
 }

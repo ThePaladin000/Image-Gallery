@@ -5,9 +5,10 @@ const closeEditProfileButton = document.querySelector(
   "#edit-profile-close-btn"
 );
 const closeNewPostButton = document.querySelector("#new-post-close-btn");
+const closeImageModalButton = document.querySelector("#image-close-btn");
 
 const cardsList = document.querySelector(".cards__list");
-const cardTemplate = document.querySelector(".card__template");
+const cardTemplate = document.querySelector("#card__template");
 
 const profileFormElement = document.querySelector("#edit-profile-form");
 const newPostFormElement = document.querySelector("#new-post-form");
@@ -25,6 +26,7 @@ const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
 const modalImage = document.querySelector(".modal__image");
+const modalCaption = document.querySelector(".modal__caption");
 
 //data for the cards (will implement in backend later)
 const initialCards = [
@@ -75,7 +77,7 @@ function getCardElement(data) {
   const likeButton = card.querySelector(".card__like-btn");
 
   likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("liked");
+    likeButton.classList.toggle("card__like-btn-liked");
   });
 
   //makes the delete button functional
@@ -88,14 +90,9 @@ function getCardElement(data) {
   //opens the image modal when you click on an image
   cardImage.addEventListener("click", (event) => {
     modalImage.src = cardImage.src;
+    modalImage.alt = cardName;
+    modalCaption.textContent = cardName;
     openModal(imageModal);
-  });
-
-  //makes the close image modal button functional
-  const closeImageModalButton = document.querySelector("#image-close-btn");
-
-  closeImageModalButton.addEventListener("click", (event) => {
-    closeModal(imageModal);
   });
 
   return card;
@@ -104,6 +101,11 @@ function getCardElement(data) {
 initialCards.forEach((cardItem) => {
   const cardElement = getCardElement(cardItem);
   cardsList.append(cardElement);
+});
+
+//makes the close image modal button functional
+closeImageModalButton.addEventListener("click", (event) => {
+  closeModal(imageModal);
 });
 
 //opens the given modal
@@ -128,7 +130,7 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = inputName.value;
   profileDescription.textContent = inputDescription.value;
 
-  closeModal();
+  closeModal(editProfileModal);
 }
 
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
@@ -141,19 +143,46 @@ function createNewCard(name, source) {
   card.querySelector(".card__image").src = source;
   card.querySelector(".card__image").alt = name;
 
+  //makes the like button interactive
+  const likeButton = card.querySelector(".card__like-btn");
+
+  likeButton.addEventListener("click", () => {
+    likeButton.classList.toggle("card__like-btn-liked");
+  });
+
+  //makes the delete button functional
+  const deleteButton = card.querySelector(".card__delete-btn");
+  deleteButton.addEventListener("click", (event) => {
+    const card = event.target.closest(".card");
+    card.remove();
+  });
+
+  //opens the image modal when you click on an image
+  const cardImage = card.querySelector(".card__image");
+
+  cardImage.addEventListener("click", (event) => {
+    modalImage.src = cardImage.src;
+    modalImage.alt = name;
+    modalCaption.textContent = name;
+    openModal(imageModal);
+  });
+
   return card;
 }
 
 function handleNewPostFormSubmit(evt) {
   evt.preventDefault();
 
-  const title = inputCaption.value;
   const source = inputSrc.value;
+  const title = inputCaption.value;
   const newCard = createNewCard(title, source);
 
   cardsList.prepend(newCard);
 
   closeModal(newPostModal);
+
+  inputSrc.value = "";
+  inputCaption.value = "";
 }
 
 newPostFormElement.addEventListener("submit", handleNewPostFormSubmit);
@@ -163,10 +192,11 @@ function closeModal(modal) {
   modal.classList.remove("modal_opened");
 }
 
-closeEditProfileButton.addEventListener("click", () => {
-  closeModal(editProfileModal);
-});
+const closeButtons = document.querySelectorAll(".modal__close-btn");
 
-closeNewPostButton.addEventListener("click", () => {
-  closeModal(newPostModal);
+closeButtons.forEach((button) => {
+  // Find the closest popup only once
+  const popup = button.closest(".modal");
+  // Set the listener
+  button.addEventListener("click", () => closeModal(popup));
 });

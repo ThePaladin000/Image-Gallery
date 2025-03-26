@@ -38,7 +38,7 @@
           <button type="button" class="profile__add-btn">New Post</button>
         </section>
         <section class="cards">
-          <template class="card__template">
+          <template id="card__template">
             <li class="card">
               <img src="" alt="" class="card__image" />
               <button class="card__delete-btn"></button>
@@ -99,12 +99,12 @@
               id="new-post-close-btn"
             ></button>
           </div>
-          <form name="edit-profile" class="modal__form" id="new-post-form">
+          <form name="new-post" class="modal__form" id="new-post-form">
             <label for="source" class="modal__label"
               >Image link
               <input
                 id="source"
-                type="text"
+                type="url"
                 class="modal__input"
                 placeholder="Paste a link to the picture"
                 required
@@ -125,11 +125,14 @@
         </div>
       </div>
       <div class="modal" id="image-modal">
-        <div class="modal__container" id="image-modal__container">
-          <img src="" alt="" class="modal__image" />
+        <div class="modal__container modal__container-image">
+          <figure class="modal__image-container">
+            <img src="" alt="" class="modal__image" />
+            <figcaption class="modal__caption"></figcaption>
+          </figure>
           <button
             type="button"
-            class="modal__close-btn"
+            class="modal__close-btn modal__close-btn-image"
             id="image-close-btn"
           ></button>
         </div>
