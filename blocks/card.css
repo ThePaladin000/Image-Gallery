@@ -62,13 +62,13 @@
   opacity: 1;
 }
 
-.card__like-btn-liked:hover {
-  opacity: 0.5;
-}
-
 .card__like-btn:hover {
   opacity: 1;
   cursor: pointer;
+}
+
+.card__like-btn-liked:hover {
+  opacity: 0.5;
 }
 
 @media screen and (max-width: 885px) {
