@@ -72,8 +72,15 @@
                 type="text"
                 class="modal__input"
                 placeholder="Type your name"
+                minlength="2"
+                maxlength="40"
                 required
               />
+              <span
+                id="name-error"
+                class="error__message"
+                aria-live="polite"
+              ></span>
             </label>
             <label for="description" class="modal__label"
               >Description
@@ -82,8 +89,15 @@
                 type="text"
                 class="modal__input"
                 placeholder="Describe yourself"
+                minlength="2"
+                maxlength="200"
                 required
               />
+              <span
+                id="description-error"
+                class="error__message"
+                aria-live="polite"
+              ></span>
             </label>
             <button type="submit" class="modal__submit-btn">Save</button>
           </form>
@@ -100,15 +114,20 @@
             ></button>
           </div>
           <form name="new-post" class="modal__form" id="new-post-form">
-            <label for="source" class="modal__label"
+            <label for="url" class="modal__label"
               >Image link
               <input
-                id="source"
+                id="url"
                 type="url"
                 class="modal__input"
                 placeholder="Paste a link to the picture"
                 required
               />
+              <span
+                id="url-error"
+                class="error__message"
+                aria-live="polite"
+              ></span>
             </label>
             <label for="caption" class="modal__label"
               >Caption
@@ -117,8 +136,15 @@
                 type="text"
                 class="modal__input"
                 placeholder="Type your caption"
+                minlength="2"
+                maxlength="30"
                 required
               />
+              <span
+                id="caption-error"
+                class="error__message"
+                aria-live="polite"
+              ></span>
             </label>
             <button type="submit" class="modal__submit-btn">Save</button>
           </form>
@@ -139,5 +165,6 @@
       </div>
     </div>
     <script defer src="./scripts/index.js"></script>
+    <script defer src="./scripts/validation.js"></script>
   </body>
 </html>

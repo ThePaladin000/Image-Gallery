@@ -13,13 +13,15 @@ const cardTemplate = document.querySelector("#card__template");
 const profileFormElement = document.querySelector("#edit-profile-form");
 const newPostFormElement = document.querySelector("#new-post-form");
 
+const allModals = document.querySelectorAll(".modal");
+
 const editProfileModal = document.querySelector("#edit-modal");
 const newPostModal = document.querySelector("#new-post-modal");
 const imageModal = document.querySelector("#image-modal");
 
 const inputName = document.querySelector("#name");
 const inputDescription = document.querySelector("#description");
-const inputSrc = document.querySelector("#source");
+const inputSrc = document.querySelector("#url");
 const inputCaption = document.querySelector("#caption");
 
 const profileName = document.querySelector(".profile__name");
@@ -111,6 +113,18 @@ closeImageModalButton.addEventListener("click", (event) => {
 //opens the given modal
 function openModal(modal) {
   modal.classList.add("modal_opened");
+
+  // Function to close the modal when user hits the esc key
+  function keydownListener(event) {
+    if (event.key === "Escape" || event.key === "Esc") {
+      closeModal(modal);
+    }
+  }
+
+  document.addEventListener("keydown", keydownListener);
+
+  // Store the listener function for later removal
+  modal.keydownListener = keydownListener;
 }
 
 editButton.addEventListener("click", () => {
@@ -179,17 +193,20 @@ function handleNewPostFormSubmit(evt) {
 
   cardsList.prepend(newCard);
 
-  closeModal(newPostModal);
+  evt.target.reset();
 
-  inputSrc.value = "";
-  inputCaption.value = "";
+  closeModal(newPostModal);
 }
 
-newPostFormElement.addEventListener("submit", handleNewPostFormSubmit);
+newPostFormElement.addEventListener("submit", function (evt) {
+  handleNewPostFormSubmit(evt);
+});
 
 //makes modal close buttons functional
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  // Use the stored listener for removal
+  document.removeEventListener("keydown", modal.keydownListener);
 }
 
 const closeButtons = document.querySelectorAll(".modal__close-btn");
@@ -200,3 +217,16 @@ closeButtons.forEach((button) => {
   // Set the listener
   button.addEventListener("click", () => closeModal(popup));
 });
+
+//function to close the modal when user clicks the overlay
+function overlayClickHandler(modals) {
+  modals.forEach((modal) => {
+    modal.addEventListener("click", function (event) {
+      if (event.target === this) {
+        closeModal(modal);
+      }
+    });
+  });
+}
+
+overlayClickHandler(allModals);
