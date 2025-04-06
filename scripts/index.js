@@ -62,7 +62,7 @@ const initialCards = [
   },
 ];
 
-//populates the grid with cards
+//helper function to return a new card
 function getCardElement(data) {
   const card = cardTemplate.content.cloneNode(true);
 
@@ -100,9 +100,16 @@ function getCardElement(data) {
   return card;
 }
 
+//uses getCardElement and inserts into the DOM
+function renderCard(item, method = "prepend") {
+  const cardElement = getCardElement(item);
+  // Add the card into the section using the method
+  cardsList[method](cardElement);
+}
+
+//populates the grid with cards
 initialCards.forEach((cardItem) => {
-  const cardElement = getCardElement(cardItem);
-  cardsList.append(cardElement);
+  renderCard(cardItem, "append");
 });
 
 //makes the close image modal button functional
@@ -127,9 +134,12 @@ function openModal(modal) {
   modal.keydownListener = keydownListener;
 }
 
-editButton.addEventListener("click", () => {
-  inputName.value = profileName.textContent;
-  inputDescription.value = profileDescription.textContent;
+editButton.addEventListener("click", (evt) => {
+  inputName.placeholder = profileName.textContent;
+  inputDescription.placeholder = profileDescription.textContent;
+
+  resetValidation(editProfileModal.querySelector(".modal__form"));
+
   openModal(editProfileModal);
 });
 
@@ -149,51 +159,22 @@ function handleProfileFormSubmit(evt) {
 
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 
-//submit logic for new post button
-function createNewCard(name, source) {
-  const card = cardTemplate.content.cloneNode(true);
-
-  card.querySelector(".card__title").textContent = name;
-  card.querySelector(".card__image").src = source;
-  card.querySelector(".card__image").alt = name;
-
-  //makes the like button interactive
-  const likeButton = card.querySelector(".card__like-btn");
-
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-btn-liked");
-  });
-
-  //makes the delete button functional
-  const deleteButton = card.querySelector(".card__delete-btn");
-  deleteButton.addEventListener("click", (event) => {
-    const card = event.target.closest(".card");
-    card.remove();
-  });
-
-  //opens the image modal when you click on an image
-  const cardImage = card.querySelector(".card__image");
-
-  cardImage.addEventListener("click", (event) => {
-    modalImage.src = cardImage.src;
-    modalImage.alt = name;
-    modalCaption.textContent = name;
-    openModal(imageModal);
-  });
-
-  return card;
-}
-
 function handleNewPostFormSubmit(evt) {
   evt.preventDefault();
 
-  const source = inputSrc.value;
   const title = inputCaption.value;
-  const newCard = createNewCard(title, source);
+  const source = inputSrc.value;
 
-  cardsList.prepend(newCard);
+  const cardData = {
+    name: title,
+    link: source,
+  };
 
-  evt.target.reset();
+  renderCard(cardData);
+
+  resetValidation(evt.target);
+
+  disableButton(evt.submitter);
 
   closeModal(newPostModal);
 }
@@ -222,7 +203,7 @@ closeButtons.forEach((button) => {
 function overlayClickHandler(modals) {
   modals.forEach((modal) => {
     modal.addEventListener("click", function (event) {
-      if (event.target === this) {
+      if (event.target === modal) {
         closeModal(modal);
       }
     });
