@@ -7,8 +7,11 @@ const settings = {
   errorClass: "modal__error_visible",
 };
 
-function resetValidation(form) {
-  form.reset();
+function resetValidation(form, config) {
+  const inputs = Array.from(form.querySelectorAll(config.inputSelector));
+  inputs.forEach((inputElement) => {
+    hideInputError(form, inputElement, config);
+  });
 }
 
 function hideInputError(form, input, config) {
@@ -27,11 +30,11 @@ function showInputError(form, input, errorMessage, config) {
   errorElement.textContent = errorMessage;
 }
 
-function checkInputValidity(form, input) {
+function checkInputValidity(form, input, config) {
   if (input.validity.valid) {
-    hideInputError(form, input, settings);
+    hideInputError(form, input, config);
   } else {
-    showInputError(form, input, input.validationMessage, settings);
+    showInputError(form, input, input.validationMessage, config);
   }
 }
 
@@ -43,7 +46,7 @@ function hasInvalidInput(inputs) {
 
 function toggleButtonState(inputs, buttonEl, config) {
   if (hasInvalidInput(inputs)) {
-    disableButton(buttonEl, settings);
+    disableButton(buttonEl, config);
   } else {
     buttonEl.disabled = false;
     buttonEl.classList.remove(config.inactiveButtonClass);
@@ -63,7 +66,7 @@ function setEventListeners(form, config) {
 
   inputs.forEach((inputElement) => {
     inputElement.addEventListener("input", function () {
-      checkInputValidity(form, inputElement);
+      checkInputValidity(form, inputElement, config);
       toggleButtonState(inputs, submitButton, settings);
     });
   });

@@ -135,10 +135,10 @@ function openModal(modal) {
 }
 
 editButton.addEventListener("click", (evt) => {
-  inputName.placeholder = profileName.textContent;
-  inputDescription.placeholder = profileDescription.textContent;
+  inputName.value = profileName.textContent;
+  inputDescription.value = profileDescription.textContent;
 
-  resetValidation(editProfileModal.querySelector(".modal__form"));
+  resetValidation(profileFormElement, settings);
 
   openModal(editProfileModal);
 });
@@ -172,9 +172,9 @@ function handleNewPostFormSubmit(evt) {
 
   renderCard(cardData);
 
-  resetValidation(evt.target);
+  evt.target.reset();
 
-  disableButton(evt.submitter);
+  disableButton(evt.submitter, settings);
 
   closeModal(newPostModal);
 }
