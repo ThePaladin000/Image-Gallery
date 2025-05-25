@@ -1,3 +1,23 @@
+import "./index.css";
+
+// Import images
+import logoImage from "../images/Logo.svg";
+import avatarImage from "../images/avatar.jpg";
+
+// Set up images
+const logoImg = document.getElementById("logo-image");
+const avatarImg = document.getElementById("avatar-image");
+
+logoImg.src = logoImage;
+avatarImg.src = avatarImage;
+
+import {
+  enableValidation,
+  settings,
+  disableButton,
+  resetValidation,
+} from "../scripts/validation.js";
+
 const editButton = document.querySelector(".profile__edit-btn");
 const newPostButton = document.querySelector(".profile__add-btn");
 
@@ -211,3 +231,5 @@ function overlayClickHandler(modals) {
 }
 
 overlayClickHandler(allModals);
+
+enableValidation(settings);
