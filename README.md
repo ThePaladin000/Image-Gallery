@@ -1,4 +1,4 @@
-# Instagram Clone
+# Image-Gallery
 
 An image sharing site.
 
@@ -15,6 +15,7 @@ The page uses responsive CSS to make the page look good on virtually any device.
 - HTML
 - CSS
 - Responsive Design
+- Webpack
 
 ## Technologies
 
