@@ -15,20 +15,19 @@ export class Api {
       fetchOptions.body = JSON.stringify(data);
     }
 
-    return fetch(`${this._baseUrl}${endpoint}`, fetchOptions)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.error(err);
-        return Promise.reject(err);
-      });
+    return fetch(`${this._baseUrl}${endpoint}`, fetchOptions).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
   }
 
   // public methods to fetch data from the API
+  getAppInfo() {
+    return Promise.all([this.getUserInfo(), this.loadCards()]);
+  }
+
   getUserInfo() {
     return this._fetchWithAuth("/users/me");
   }

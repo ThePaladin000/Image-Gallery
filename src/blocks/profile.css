@@ -76,6 +76,7 @@
 .profile__picture {
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
 
 .profile__picture_edit-btn {
@@ -95,6 +96,7 @@
   color: rgba(255, 255, 255, 1);
   gap: 8px;
   transition: opacity 0.3s ease;
+  cursor: pointer;
 }
 
 .profile__picture_edit-btn::before {

@@ -70,23 +70,23 @@ const api = new Api({
   },
 });
 
+// Initialize app content
 api
-  .getUserInfo()
-  .then((userData) => {
+  .getAppInfo()
+  .then(([userData, cards]) => {
+    // Set user info
     profileName.textContent = userData.name;
     profileDescription.textContent = userData.about;
     avatarImg.src = userData.avatar;
+
+    // Render cards
+    cards.forEach((card) => {
+      renderCard(card, "append");
+    });
   })
   .catch((err) => {
-    console.error("Error fetching user data:", err);
+    console.error("Error getting app info:", err);
   });
-
-// Load and render cards from the API
-api.loadCards().then((cards) => {
-  cards.forEach((card) => {
-    renderCard(card);
-  });
-});
 
 //helper function to return a new card
 function getCardElement(data) {
@@ -108,15 +108,30 @@ function getCardElement(data) {
   //makes the like button interactive
   const likeButton = card.querySelector(".card__like-btn");
 
+  // Set initial like state
+  if (data.isLiked) {
+    likeButton.classList.add("card__like-btn-liked");
+  }
+
   likeButton.addEventListener("click", () => {
     if (likeButton.classList.contains("card__like-btn-liked")) {
-      api.dislikeCard(data._id).then((res) => {
-        likeButton.classList.remove("card__like-btn-liked");
-      });
+      api
+        .dislikeCard(data._id)
+        .then(() => {
+          likeButton.classList.remove("card__like-btn-liked");
+        })
+        .catch((err) => {
+          console.error(`Error disliking card: ${err.status}`);
+        });
     } else {
-      api.likeCard(data._id).then((res) => {
-        likeButton.classList.add("card__like-btn-liked");
-      });
+      api
+        .likeCard(data._id)
+        .then(() => {
+          likeButton.classList.add("card__like-btn-liked");
+        })
+        .catch((err) => {
+          console.error(`Error liking card: ${err.status}`);
+        });
     }
   });
 
@@ -150,7 +165,6 @@ function handleDeleteSubmit(evt) {
   const originalText = submitButton.textContent;
 
   submitButton.textContent = "Deleting...";
-  submitButton.disabled = true;
 
   api
     .deleteCard(selectedCardId)
@@ -158,10 +172,11 @@ function handleDeleteSubmit(evt) {
       selectedCard.remove();
       closeModal(deleteModal);
     })
-    .catch(console.error)
+    .catch((err) => {
+      console.error(`Error deleting card: ${err.status}`);
+    })
     .finally(() => {
       submitButton.textContent = originalText;
-      submitButton.disabled = false;
     });
 }
 
@@ -226,7 +241,7 @@ function handleProfileFormSubmit(evt) {
   const originalText = submitButton.textContent;
 
   submitButton.textContent = "Saving...";
-  submitButton.disabled = true;
+  disableButton(submitButton, settings);
 
   api
     .editUserInfo({ name: inputName.value, about: inputDescription.value })
@@ -235,7 +250,9 @@ function handleProfileFormSubmit(evt) {
       profileDescription.textContent = res.about;
       closeModal(editProfileModal);
     })
-    .catch(console.error)
+    .catch((err) => {
+      console.error(`Error updating profile: ${err.status}`);
+    })
     .finally(() => {
       submitButton.textContent = originalText;
       submitButton.disabled = false;
@@ -250,7 +267,7 @@ function handleNewPostFormSubmit(evt) {
   const originalText = submitButton.textContent;
 
   submitButton.textContent = "Saving...";
-  submitButton.disabled = true;
+  disableButton(submitButton, settings);
 
   const title = inputCaption.value;
   const source = document.querySelector("#new-post-form #url").value;
@@ -267,7 +284,9 @@ function handleNewPostFormSubmit(evt) {
       evt.target.reset();
       closeModal(newPostModal);
     })
-    .catch(console.error)
+    .catch((err) => {
+      console.error(`Error creating new card: ${err.status}`);
+    })
     .finally(() => {
       submitButton.textContent = originalText;
       submitButton.disabled = false;
@@ -284,7 +303,7 @@ function handleAvatarFormSubmit(evt) {
   const originalText = submitButton.textContent;
 
   submitButton.textContent = "Saving...";
-  submitButton.disabled = true;
+  disableButton(submitButton, settings);
 
   const avatarUrl = document.querySelector("#avatar-modal #url").value;
 
@@ -292,9 +311,12 @@ function handleAvatarFormSubmit(evt) {
     .editUserAvatar({ avatar: avatarUrl })
     .then((res) => {
       avatarImg.src = res.avatar;
+      evt.target.reset();
       closeModal(avatarModal);
     })
-    .catch(console.error)
+    .catch((err) => {
+      console.error(`Error updating avatar: ${err.status}`);
+    })
     .finally(() => {
       submitButton.textContent = originalText;
       submitButton.disabled = false;
