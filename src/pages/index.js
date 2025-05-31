@@ -241,13 +241,15 @@ function handleProfileFormSubmit(evt) {
   const originalText = submitButton.textContent;
 
   submitButton.textContent = "Saving...";
-  disableButton(submitButton, settings);
 
   api
     .editUserInfo({ name: inputName.value, about: inputDescription.value })
     .then((res) => {
+      disableButton(submitButton, settings);
+
       profileName.textContent = res.name;
       profileDescription.textContent = res.about;
+
       closeModal(editProfileModal);
     })
     .catch((err) => {
@@ -255,7 +257,6 @@ function handleProfileFormSubmit(evt) {
     })
     .finally(() => {
       submitButton.textContent = originalText;
-      submitButton.disabled = false;
     });
 }
 
@@ -267,7 +268,6 @@ function handleNewPostFormSubmit(evt) {
   const originalText = submitButton.textContent;
 
   submitButton.textContent = "Saving...";
-  disableButton(submitButton, settings);
 
   const title = inputCaption.value;
   const source = document.querySelector("#new-post-form #url").value;
@@ -280,6 +280,7 @@ function handleNewPostFormSubmit(evt) {
   api
     .addNewCard(cardData)
     .then((card) => {
+      disableButton(submitButton, settings);
       renderCard(card);
       evt.target.reset();
       closeModal(newPostModal);
@@ -289,7 +290,6 @@ function handleNewPostFormSubmit(evt) {
     })
     .finally(() => {
       submitButton.textContent = originalText;
-      submitButton.disabled = false;
     });
 }
 
@@ -303,13 +303,13 @@ function handleAvatarFormSubmit(evt) {
   const originalText = submitButton.textContent;
 
   submitButton.textContent = "Saving...";
-  disableButton(submitButton, settings);
 
   const avatarUrl = document.querySelector("#avatar-modal #url").value;
 
   api
     .editUserAvatar({ avatar: avatarUrl })
     .then((res) => {
+      disableButton(submitButton, settings);
       avatarImg.src = res.avatar;
       evt.target.reset();
       closeModal(avatarModal);
@@ -319,7 +319,6 @@ function handleAvatarFormSubmit(evt) {
     })
     .finally(() => {
       submitButton.textContent = originalText;
-      submitButton.disabled = false;
     });
 }
 
