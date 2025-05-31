@@ -15,7 +15,7 @@
 .profile__column {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .profile__name {
@@ -71,6 +71,48 @@
   width: 15px;
   height: 15px;
   display: inline-block;
+}
+
+.profile__picture {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.profile__picture_edit-btn {
+  display: flex;
+  position: absolute;
+  top: 160px;
+  left: 40px;
+  margin-top: auto;
+  color: #212121;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  border: none;
+  background-color: transparent;
+  opacity: 0;
+  padding: 0;
+  color: rgba(255, 255, 255, 1);
+  gap: 8px;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.profile__picture_edit-btn::before {
+  content: "";
+  background-image: url("../images/pencil-white.svg");
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+}
+
+.profile__picture:hover .profile__picture_edit-btn {
+  opacity: 1;
+}
+
+.profile__picture:hover .profile__avatar {
+  opacity: 0.5;
 }
 
 .profile__add-btn {
@@ -142,5 +184,28 @@
   .profile__edit-btn {
     margin: 0 0 20px;
     align-self: center;
+  }
+
+  .profile__picture_edit-btn {
+    font-size: 0;
+  }
+
+  .profile__picture_edit-btn::before {
+    width: 12px;
+    height: 12px;
+    margin: 0;
+    position: absolute;
+    bottom: 83px;
+    left: 15px;
+    background-color: rgba(33, 33, 33, 0.8);
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 6px;
+    padding: 5px;
+    display: block;
+  }
+
+  .profile__picture:hover .profile__picture_edit-btn::before {
+    opacity: 1;
   }
 }
