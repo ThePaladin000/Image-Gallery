@@ -5,29 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="The House of Beans Coffeshop. Conveniently located in West Palm Beach."
+      content="An Instagram-like website for sharing images."
     />
-    <meta
-      name="keywords"
-      content="Coffee, Coffeeshop, Dark Roast, Latte, Expresso"
-    />
+    <meta name="keywords" content="images, photos, pictures, gallery" />
     <meta name="author" content="Josh Gomez" />
-    <link rel="stylesheet" type="text/css" href="./pages/index.css" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <!-- <link rel="icon" type="image/x-icon" href="images/favicon.ico" /> -->
     <title>Spots</title>
   </head>
   <body>
     <div class="page">
       <header class="header">
-        <img src="./images/Logo.svg" alt="Website Logo" class="header__logo" />
+        <img id="logo-image" alt="Website Logo" class="header__logo" />
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            src="./images/avatar.jpg"
-            alt="profile picture"
-            class="profile__avatar"
-          />
+          <div class="profile__picture">
+            <img
+              id="avatar-image"
+              alt="profile picture"
+              class="profile__avatar"
+            />
+            <button type="button" class="profile__picture_edit-btn">
+              Edit Avatar
+            </button>
+          </div>
           <div class="profile__column">
             <h1 class="profile__name">Bessie Coleman</h1>
             <p class="profile__description">Civil Aviator</p>
@@ -54,6 +55,62 @@
       <footer class="footer">
         <p class="footer__copyright">2025 &copy; Spots</p>
       </footer>
+      <div class="modal" id="delete-modal">
+        <div class="modal__container modal__container_delete">
+          <div class="modal__header modal__header_delete">
+            <h2 class="modal__title modal__title_delete">
+              Are you sure you want to delete this image?
+            </h2>
+            <button
+              type="button"
+              class="modal__close-btn modal__close-btn_delete"
+            ></button>
+          </div>
+          <form class="modal__form" id="delete-form">
+            <div class="modal__buttons">
+              <button
+                type="submit"
+                class="modal__button modal__button_delete modal__submit-btn"
+              >
+                Delete
+              </button>
+              <button type="button" class="modal__button modal__button_cancel">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal" id="avatar-modal">
+        <div class="modal__container">
+          <div class="modal__header">
+            <h2 class="modal__title">Edit profile avatar</h2>
+            <button
+              type="button"
+              class="modal__close-btn"
+              id="edit-profile-close-btn"
+            ></button>
+          </div>
+          <form name="edit-avatar" class="modal__form" id="edit-avatar-form">
+            <label for="url" class="modal__label"
+              >Profile Picture
+              <input
+                id="url"
+                type="url"
+                class="modal__input"
+                placeholder="Paste a link to an image"
+                required
+              />
+              <span
+                id="url-error"
+                class="modal__error"
+                aria-live="polite"
+              ></span>
+            </label>
+            <button type="submit" class="modal__submit-btn">Save</button>
+          </form>
+        </div>
+      </div>
       <div class="modal" id="edit-modal">
         <div class="modal__container">
           <div class="modal__header">
@@ -164,7 +221,5 @@
         </div>
       </div>
     </div>
-    <script defer src="./scripts/validation.js"></script>
-    <script defer src="./scripts/index.js"></script>
   </body>
 </html>
