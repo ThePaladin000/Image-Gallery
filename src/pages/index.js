@@ -2,7 +2,6 @@ import "./index.css";
 
 // Import images
 import logoImage from "../images/Logo.svg";
-import avatarImage from "../images/avatar.jpg";
 
 // Set up images
 const logoImg = document.getElementById("logo-image");
@@ -23,14 +22,7 @@ const editButton = document.querySelector(".profile__edit-btn");
 const newPostButton = document.querySelector(".profile__add-btn");
 const avatarEditButton = document.querySelector(".profile__picture_edit-btn");
 
-const closeEditProfileButton = document.querySelector(
-  "#edit-profile-close-btn"
-);
-const closeNewPostButton = document.querySelector("#new-post-close-btn");
 const closeImageModalButton = document.querySelector("#image-close-btn");
-const closeAvatarModalButton = document.querySelector(
-  "#avatar-modal .modal__close-btn"
-);
 
 const cardsList = document.querySelector(".cards__list");
 const cardTemplate = document.querySelector("#card__template");
@@ -49,7 +41,6 @@ const avatarModal = document.querySelector("#avatar-modal");
 
 const inputName = document.querySelector("#name");
 const inputDescription = document.querySelector("#description");
-const inputSrc = document.querySelector("#url");
 const inputCaption = document.querySelector("#caption");
 
 const profileName = document.querySelector(".profile__name");
